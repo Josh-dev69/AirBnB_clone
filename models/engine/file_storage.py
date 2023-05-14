@@ -2,6 +2,7 @@
 """Defining class filestorage to
 handles serialization and deserialization"""
 import json
+from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -31,12 +32,13 @@ class FileStorage:
         """Load all instances from the file"""
         try:
             from models.base_model import BaseModel
-            """
+            from models.user import User
+            
 
             classes = {'BaseModel': BaseModel, "Review": Review,
                        "Amenity": Amenity, "User": User,
                        "Place": Place, "City": City, "State": State}
-            """
+            
             with open(self.__file_path, 'r') as reload:
                 text = json.load(reload)
                 for key, value in text.items():
