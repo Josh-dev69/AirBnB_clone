@@ -77,7 +77,8 @@ $ cd AirBnB_clone
 
 $ python3 -m unittest discover tests
 
-CONTRIBUTORS
+
+## CONTRIBUTORS
 1. OGUNDIJO FIKAYO
 	Github: Fikayo
 2. ALOH EBUBE JOSHUA
