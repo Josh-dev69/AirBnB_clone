@@ -7,16 +7,26 @@ import uuid
 class BaseModel:
     """Representing a BaseModel class"""
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Initializing the BaseModel class
         Args:
             id - string assign to uuid
             created_at - datetime instance
             updated_at - updated daytime instance
         """
-        self.id = str(uuid.uuid4())
-        self.created = datetime.now()
-        self.updated_at = datetime.now()
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == "__class__":
+                    continue
+                if key == "created_at":
+                    value = datetime.strptime(value, '%Y-%M-%dT%H:%M:S.%f')
+                if key == "updated_at":
+                    value = datetime.strptime(value, '%Y-%M-%dT%H:%M:S.%f')
+                setattr(self, key, value)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """Return string representation of the class"""
@@ -35,4 +45,3 @@ class BaseModel:
         my_dict['created_at'] = self.created_at.isoformat()
         my_dict['updated_at'] = self.updated_at.isoformat()
         return my_dict
-
