@@ -1,41 +1,46 @@
 #!/usr/bin/python3
-"""Defining a file storage class that handles serialization
-and deserialization"""
-from models.base_model import BaseModel
+"""Defining class filestorage to
+handles serialization and deserialization"""
+import json
 
 
 class FileStorage:
-    """serialiazation and deserialization of instance to a json file"""
-
+    """Representation of class for Storage engine for serialization"""
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
-        """Return the dict __objects"""
-        return self.__objects
+        """Return all instances"""
+        return FileStorage.__objects
 
     def new(self, obj):
-        """sets in __objects the obj with key <obj class name>.id"""
+        """Create a new instance"""
         key = f"{obj.__class__.__name__}.{obj.id}"
-        self__objects[key] = obj
+        self.all().update({key: obj})
 
     def save(self):
-        """ Serialize __objects to JSON file """
-        serialized = {}
-        for key, value in FileStorage.__objects.items():
-            serialized[key] = value.to_dict()
-        with open(FileStorage.__file_path, 'w') as f:
-            json.dump(serialized, f)
+        """Save an existing instance to the file"""
+        with open(FileStorage.__file_path, 'w') as save:
+            to__dict = {}
+            to__dict.update(FileStorage.__objects)
+            for key, value in to__dict.items():
+                to__dict[key] = value.to_dict()
+            json.dump(to__dict, save)
 
     def reload(self):
-        """ Deserialize the JSON file to __object """
+        """Load all instances from the file"""
         try:
-            with open(FileStorage.__file_path, 'r') as f:
-                deserialized = json.load(f)
-                for key, value in deserialized.items():
-                    class_name, obj_id = key.split('.')
-                    module = __import__('models.' + class_name, fromlist=[class_name])
-                    class_ = getattr(module, class_name)
-                    FileStorage.__objects[key] = class_(**value)
-        except FileNotFoundError:
+            from models.base_model import BaseModel
+            """
+
+            classes = {'BaseModel': BaseModel, "Review": Review,
+                       "Amenity": Amenity, "User": User,
+                       "Place": Place, "City": City, "State": State}
+            """
+            with open(self.__file_path, 'r') as reload:
+                text = json.load(reload)
+                for key, value in text.items():
+                    cls_name = key.split('.')[0]
+                    self.all()[key] = classes[cls_name](**value)
+        except IOError:
             pass
