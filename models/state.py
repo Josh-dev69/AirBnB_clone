@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Defining the class State"""
+""" This module inherits from the BaseModel"""
 from models.base_model import BaseModel
 
 class State(BaseModel):
