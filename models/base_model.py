@@ -4,6 +4,7 @@ from _datetime import datetime
 import uuid
 import models
 
+
 class BaseModel:
     """Representing a BaseModel class"""
 
@@ -15,6 +16,7 @@ class BaseModel:
             updated_at - updated daytime instance
         """
 
+        TD_form = "%Y-%m-%dT%H:%M:%S.%f"
         self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
@@ -22,7 +24,7 @@ class BaseModel:
         if len(kwargs) != 0:
             for key, value in kwargs.items():
                 if key == "updated_at" or key == "created_at":
-                    self.__dict__[key] = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                    self.__dict__[key] = datetime.strptime(value, TD_form)
                 else:
                     self.__dict__[key] = value
         else:
@@ -46,4 +48,3 @@ class BaseModel:
         my_dict['created_at'] = self.created_at.isoformat()
         my_dict['updated_at'] = self.updated_at.isoformat()
         return my_dict
-

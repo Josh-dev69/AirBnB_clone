@@ -16,6 +16,7 @@ from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
 
+
 def parse(arg):
     """ Function that takes a string argument and splits it into
     tokens based on comma-separated values. """
@@ -121,7 +122,6 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """ Deletes a User instance based on the class name and id.
-        
         Usage: destroy <class> <id> or <class>.destroy(<id>) """
         argl = parse(arg)
         objdict = storage.all()
@@ -138,9 +138,8 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_all(self, arg):
-        """Prints all string representation of all instances based or not on the
-        class name.
-        
+        """Prints all string representation of all instances based or not
+        on the class name.
         Usage: all or all <class> or <class>.all()
         """
         argl = parse(arg)
@@ -158,7 +157,6 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, arg):
         """Updates an instance based on the class name and id by adding
         or updating attribute (save the change into the JSON file).
-        
         Usage: update <class> <id> <attribute_name> <attribute_value> or
         <class>.update(<id>, <attribute_name>, <attribute_value>) or
         <class>.update(<id>, <dictionary>)
@@ -215,6 +213,7 @@ class HBNBCommand(cmd.Cmd):
             if argl[0] == obj.__class__.__name__:
                 count += 1
         print(count)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
