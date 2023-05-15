@@ -13,9 +13,17 @@ class BaseModel:
             created_at - datetime instance
             updated_at - updated daytime instance
         """
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+
+        if kwargs:
+            kwargs.pop('__class__', None)
+            for key, value in kwargs.items():
+                if key == "updated_at" or key == "created_at":
+                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
+                setattr(self, key, value)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """Return string representation of the class"""
@@ -25,7 +33,6 @@ class BaseModel:
     def save(self):
         """Update the updated_at with current datetime"""
         self.updated_at = datetime.now()
-
     def to_dict(self):
         """Return a dict containing all key and value of dict"""
         my_dict = self.__dict__.copy()
