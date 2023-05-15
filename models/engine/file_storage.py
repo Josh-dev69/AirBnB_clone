@@ -1,8 +1,14 @@
 #!/usr/bin/python3
 """This file handles serialization and deserialization"""
+
 import json
-import os.path
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 
 class FileStorage:
     """Storage engine for serialization"""
@@ -11,28 +17,29 @@ class FileStorage:
 
     def all(self):
         """Return all instances"""
-        return self.__objects
+        return FileStorage.__objects
 
     def new(self, obj):
         """Create a new instance"""
-        key = f"{obj.__class__.__name__}.{obj.id}"
-        self.__objects[key] = obj
+        class_name = obj.__class__.__name__
+        key = f"{class_name}.{obj.id}"
+        FileStorage.__objects[key] = obj
 
     def save(self):
-        """Save an existing instance to the file"""
-        serialized_objects = {}
-        for key, value in self.__objects.items():
-            serialized_objects[key] = value.to_dict()
-
-        with open(self.__file_path, 'w') as file:
-            json.dump(serialized_objects, file)
+        """Serialize __objects to the JSON file __file_path."""
+        odict = FileStorage.__objects
+        objdict = {obj: odict[obj].to_dict() for obj in odict.keys()}
+        with open(FileStorage.__file_path, "w") as file:
+            json.dump(objdict, file)
 
     def reload(self):
-        """Load all instances from the file"""
-        if os.path.isfile(self.__file_path):
-            with open(self.__file_path, 'r') as file:
-                data = json.load(file)
-
-            for key, value in data.items():
-                obj = BaseModel.from_dict(value)
-                self.__objects[key] = obj
+        """Deserialize the JSON file __file_path to __objects, if it exists."""
+        try:
+            with open(FileStorage.__file_path) as file:
+                objdict = json.load(file)
+                for o in objdict.values():
+                    class_name = o["__class__"]
+                    del o["__class__"]
+                    self.new(eval(class_name)(**o))
+        except FileNotFoundError:
+            return
