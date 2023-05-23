@@ -71,10 +71,14 @@ section.filters button:hover {
 	margin-bottom: 5px;
 }
 
-.locations > .popover > li, .amenities > .popover > li {
+.locations > .popover > li {
 	margin-bottom: 30px;
 }
 
 .locations > .popover > li > ul {
 	padding-left: 20px;
+}
+
+.amenities > .popover > li {
+	margin-bottom: 10px;
 }
