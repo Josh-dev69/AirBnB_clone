@@ -1,0 +1,111 @@
+.places {
+        width: 100%;
+        display: flex;
+        border: 0;
+        justify-content: center;
+        flex-wrap: wrap;
+        flex-direction: row;
+}
+
+.places > h1 {
+        font-size: 30px;
+        padding-top: 20px;
+        padding-left: 20px;
+        margin-bottom: 0px;
+        flex: 0 1 100%;
+}
+
+article {
+        width: 390px;
+        padding: 20px;
+        margin: 20px;
+        border: 1px #FF5A5F;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+	flex-direction: column;
+	position: relative;
+	justify-content: flex-start;
+}
+
+article > h2 {
+        font-size: 30px;
+	align-self: center;
+	margin: 0 0 0 0;
+}
+
+.price_by_night {
+	font-color: #FF5A5F;
+	height: 60px;
+	min-width: 60px;
+	border: 4px #FF5A5F;
+	border-radius: 50%;
+	display: flex;
+	font-size: 30px;
+	justify-content: center;
+	align-items: center;
+	margin-left: auto;
+	position: absolute;
+	top: 10px;
+	right: 20px;
+}
+
+.price_by_night > p {
+	margin: 0 0 0 0;
+}
+
+.information {
+	height: 80px;
+	width: 100%;
+	border-top: 1px #DDDDDD;
+	border-bottom: 1px #DDDDDD;
+	align-self: center;
+	margin-top: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.max_guest, .number_rooms, .number_bathrooms {
+	width: 100px;
+	margin-bottom: auto;
+}
+
+.max_guest > p, .number_rooms > p, .number_bathrooms > p {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.guest_image {
+	margin-left: auto;
+	margin-right: auto;
+	height: 50px;
+	width: 50px;
+	background: url('../images/icon_group.png') no-repeat center;
+}
+
+.bed_image {
+	margin-left: auto;
+	margin-right: auto;
+	height: 50px;
+	width: 50px;
+	background: url('../images/icon_bed.png') no-repeat center;
+}
+
+.bath_image {
+	margin-left: auto;
+	margin-right: auto;
+	height: 50px;
+	width: 50px;
+	background: url('../images/icon_bath.png') no-repeat center;
+}
+
+.user > p {
+	margin-top: 20px;
+	margin-bottom: 0px;
+}
+
+.description > p {
+	margin-top: 7px;
+	margin-bottom: 0px;
+}
