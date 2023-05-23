@@ -67,6 +67,10 @@ section.filters button:hover {
 	display: block;
 }
 
+.popover h2 {
+	margin-bottom: 5px;
+	margin-top: 20px;
+}
 
 .locations > .popover > li {
 	margin-bottom: 30px;
